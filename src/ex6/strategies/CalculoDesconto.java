@@ -9,11 +9,16 @@ public class CalculoDesconto {
     }
 
     public double executarCalculo(double valorCompra){
-        if(this.strategy == null){
+        if (this.strategy == null) {
             System.out.println("Sem estratégia definida");
             return 0;
         }
 
-        return strategy.calculaDesconto(valorCompra);
+        double limiteDescontoMaximo = ConfiguracaoDesconto.getInstance().getLimiteDescontoMaximo();
+        double descontoCalculado = strategy.calculaDesconto(valorCompra);
+
+        return Math.min(descontoCalculado, limiteDescontoMaximo);
     }
+
+
 }
